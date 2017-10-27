@@ -20,6 +20,7 @@
     <modules>
         <module>sssp_demo</module>
         <module>ssm_demo</module>
+        <module>web_server</module>
     </modules>
 
     <!--项目的名称, Maven产生的文档用-->
