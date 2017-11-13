@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- IOC 容器扫描 service, dao, aspect, converter -->
+
+    <!-- 启用注解 -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- 引入 数据源 配置文件 -->
+    <context:property-placeholder location="classpath:settings.properties"/>
+
+    <!-- 数据源配置 -->
+    <bean id="demoDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="jdbcUrl" value="${jdbc.demo.url}"/>
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+    </bean>
+
+    <!--&lt;!&ndash; 配置 jdbcTemplate &ndash;&gt;-->
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--&lt;!&ndash; 使用基础数据库源 &ndash;&gt;-->
+        <!--<property name="dataSource" ref=""/>-->
+    <!--</bean>-->
+
+    <!-- MyBatis SessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- demo应用数据源 -->
+        <property name="dataSource" ref="demoDataSource"/>
+        <!-- mybatis配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config/mybatis-config.xml"/>
+        <!-- 自动扫描 mybatis 映射文件 -->
+        <property name="mapperLocations" value="classpath:mybatis-mapper/*.xml"/>
+        <!-- pojo 别名 -->
+        <property name="typeAliasesPackage"
+                  value="cn.edu.uestc.ostec.aems.support.pojo"/>
+    </bean>
+
+    <!--MyBatis DAO Mapper-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- DAO 层所在的目录 -->
+        <property name="basePackage" value="me.elvis.demo.support.mapper"/>
+        <!-- 注入 sessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="demoDataSource"/>
+    </bean>
+
+    <!--使用声明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

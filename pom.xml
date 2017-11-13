@@ -133,7 +133,7 @@
             <artifactId>javaee-api</artifactId>
             <version>${javaee.version}</version>
         </dependency>
-        <!-- 导入Mysql数据库链接jar包 -->
+        <!--导入Mysql数据库链接jar包-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
