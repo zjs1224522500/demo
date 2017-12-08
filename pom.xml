@@ -40,6 +40,7 @@
         <!-- alpha为内部测试版 -->
         <sssp_demo.version>1.0.0.alpha</sssp_demo.version>
         <ssm_demo.version>1.0.0 alpha</ssm_demo.version>
+        <jedis_demo.version>1.0.0 alpha</jedis_demo.version>
 
 
         <!-- spring版本号 -->
@@ -66,7 +67,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
