@@ -10,6 +10,9 @@
     <context:component-scan base-package="me.elvis.demo.support.mapper"/>
     <context:component-scan base-package="me.elvis.demo.service" />
 
+    <!-- IOC 容器扫描 cache -->
+    <context:component-scan base-package="me.elvis.demo.cache.redis" />
+
     <!-- 启用注解 -->
     <aop:aspectj-autoproxy/>
 
