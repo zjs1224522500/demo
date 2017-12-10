@@ -54,13 +54,13 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-    <!-- 事务管理器 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="demoDataSource"/>
-    </bean>
+    <!--&lt;!&ndash; 事务管理器 &ndash;&gt;-->
+    <!--<bean id="transactionManager"-->
+          <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="demoDataSource"/>-->
+    <!--</bean>-->
 
-    <!--使用声明式事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--&lt;!&ndash;使用声明式事务 &ndash;&gt;-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
 </beans>

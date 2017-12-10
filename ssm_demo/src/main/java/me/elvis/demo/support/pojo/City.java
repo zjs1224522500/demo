@@ -1,6 +1,6 @@
 package me.elvis.demo.support.pojo;
 
-public class CityCodeCn {
+public class City {
 
 	/**
 	 * 仅用于数据库中做主键，不赋予任何实质含义
