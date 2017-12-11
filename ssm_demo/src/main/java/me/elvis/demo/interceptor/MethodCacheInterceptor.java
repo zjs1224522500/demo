@@ -80,6 +80,7 @@ public class MethodCacheInterceptor implements MethodInterceptor {
 		try {
 			// 判断是否有缓存，缓存中若有直接返回
 			if (redisUtil.exists(key)) {
+				logger.debug("**********find value in the cache**********");
 				return redisUtil.get(key);
 			}
 			// 写入缓存

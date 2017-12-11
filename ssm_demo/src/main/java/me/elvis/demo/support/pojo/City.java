@@ -2,7 +2,9 @@ package me.elvis.demo.support.pojo;
 
 import java.io.Serializable;
 
-public class City implements Serializable {
+public class City implements Serializable{
+
+	private static final long serialVersionUID = -8001137954314810450L;
 
 	/**
 	 * 仅用于数据库中做主键，不赋予任何实质含义

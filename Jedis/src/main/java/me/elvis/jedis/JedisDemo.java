@@ -2,6 +2,9 @@ package me.elvis.jedis;
 
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Set;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -10,6 +13,53 @@ import redis.clients.jedis.JedisPoolConfig;
  * Version:v1.0 (description:  ) Date:2017/12/8 0008  Time:16:19
  */
 public class JedisDemo {
+
+	@Test
+	public void getAllKeysValues() {
+		long start = System.currentTimeMillis();
+
+		//连接redis服务器，localhost:6379
+		Jedis redis = new Jedis("localhost", 6379);
+		redis.auth("root");
+		// 获取所有key
+		Set<byte[]> keySet = redis.keys("*".getBytes());
+		byte[][] keys = keySet.toArray(new byte[keySet.size()][]);
+		// 获取所有value
+		byte[][] values = redis.mget(keys).toArray(new byte[keySet.size()][]);
+
+		// 打印key-value对
+		for (int i = 0; i < keySet.size(); ++i) {
+			System.out.println(byte2string(keys[i]) + " --- " + byte2string(values[i]));
+		}
+
+		long end = System.currentTimeMillis();
+		// 计算耗时
+		System.out.println("Query " + values.length + " pairs takes " + (end - start) + " millis");
+		redis.close();
+	}
+
+	private static String byte2hex(byte[] buffer) {
+		String h = "0x";
+
+		for (byte aBuffer : buffer) {
+			String temp = Integer.toHexString(aBuffer & 0xFF);
+			if (temp.length() == 1) {
+				temp = "0" + temp;
+			}
+			h = h + " " + temp;
+		}
+		return h;
+	}
+
+	private static String byte2string(byte[] buffer) {
+		try {
+			return new String(buffer,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 	/**
 	 * Jedis单实例的测试
