@@ -14,7 +14,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.lang.reflect.Method;
 
 /**
- * Version:v1.0 (description:  ) Date:2017/12/8 0008  Time:17:21
+ * Version:v1.0 (description: 使用程序进行Spring-Redis的整合  )
+ * Date:2017/12/8 0008  Time:17:21
  */
 @Configuration
 @EnableCaching
@@ -26,6 +27,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 		jedisConnectionFactory.setHostName("127.0.0.1");
 		jedisConnectionFactory.setPort(6379);
+		jedisConnectionFactory.setPassword("root");
 		return jedisConnectionFactory;
 	}
 

@@ -8,16 +8,76 @@
 
     <!-- IOC 容器扫描 service, dao, aspect, converter -->
     <context:component-scan base-package="me.elvis.demo.support.mapper"/>
-    <context:component-scan base-package="me.elvis.demo.service" />
+    <context:component-scan base-package="me.elvis.demo.service"/>
 
     <!-- IOC 容器扫描 cache -->
-    <context:component-scan base-package="me.elvis.demo.cache.redis" />
+    <context:component-scan base-package="me.elvis.demo.cache.redis"/>
 
     <!-- 启用注解 -->
     <aop:aspectj-autoproxy/>
 
     <!-- 引入 数据源 配置文件 -->
     <context:property-placeholder location="classpath:settings.properties"/>
+    <!-- 引入 Redis 配置文件-->
+    <context:property-placeholder location="classpath:redis.properties"/>
+
+
+    <!-- start ssm整合jedis配置 利用redis作缓存机制 -->
+    <!-- jedis 配置 -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWait}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+    <!-- redis服务器中心 -->
+    <bean id="connectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="poolConfig"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="hostName" value="${redis.host}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="${redis.timeout}"></property>
+    </bean>
+
+    <!-- 配置 redisTemplate -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!-- 主要有两种序列化方式：String序列化 和 JDK序列化 -->
+        <!-- key一般使用String序列化策略便于客户端进行相关读取操作 -->
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <!-- value的序列化方式可以采用不同的序列化方式。 -->
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+
+    <!-- 通过IOC来注入对应的拦截器和Util的属性 -->
+    <!-- 其中拦截器和Util都为自定义的相关class -->
+    <bean name="methodCacheInterceptor" class="me.elvis.demo.interceptor.MethodCacheInterceptor">
+        <property name="redisUtil" ref="redisUtil"/>
+    </bean>
+    <bean name="redisUtil" class="me.elvis.demo.support.util.RedisUtil">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
+
+    <!-- 利用aop来匹配对应的需要缓存的方法，并使其进入自定义的拦截器 -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="controllerMethodPointcut" expression="
+        execution( * me.elvis.demo.service.*.get*(..))"/>
+
+        <aop:pointcut id="selectMethodPointcut" expression="
+        execution( * me.elvis.demo.support.mapper.*Mapper.select*(..))"/>
+
+        <!-- 使用自定义的拦截器来处理对应的切点的逻辑 -->
+        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPointcut"/>
+    </aop:config>
+    <!-- end ssm整合jedis配置 利用redis作缓存机制 -->
 
     <!-- 数据源配置 -->
     <bean id="demoDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -32,8 +92,8 @@
 
     <!--&lt;!&ndash; 配置 jdbcTemplate &ndash;&gt;-->
     <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-        <!--&lt;!&ndash; 使用基础数据库源 &ndash;&gt;-->
-        <!--<property name="dataSource" ref=""/>-->
+    <!--&lt;!&ndash; 使用基础数据库源 &ndash;&gt;-->
+    <!--<property name="dataSource" ref=""/>-->
     <!--</bean>-->
 
     <!-- MyBatis SessionFactory -->
