@@ -1,6 +1,8 @@
 package me.elvis.demo.support.pojo;
 
-public class City {
+import java.io.Serializable;
+
+public class City implements Serializable {
 
 	/**
 	 * 仅用于数据库中做主键，不赋予任何实质含义

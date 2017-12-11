@@ -10,16 +10,18 @@
     <context:component-scan base-package="me.elvis.demo.support.mapper"/>
     <context:component-scan base-package="me.elvis.demo.service"/>
 
-    <!-- IOC 容器扫描 cache -->
-    <context:component-scan base-package="me.elvis.demo.cache.redis"/>
+    <!--&lt;!&ndash; IOC 容器扫描 cache &ndash;&gt;-->
+    <!--<context:component-scan base-package="me.elvis.demo.cache.redis"/>-->
 
     <!-- 启用注解 -->
     <aop:aspectj-autoproxy/>
 
+
+    <!-- 当包含多个properties配置文件时需要设置 ignore-unresolvable="true"  -->
     <!-- 引入 数据源 配置文件 -->
-    <context:property-placeholder location="classpath:settings.properties"/>
+    <context:property-placeholder location="classpath:settings.properties" ignore-unresolvable="true"/>
     <!-- 引入 Redis 配置文件-->
-    <context:property-placeholder location="classpath:redis.properties"/>
+    <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
 
 
     <!-- start ssm整合jedis配置 利用redis作缓存机制 -->

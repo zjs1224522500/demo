@@ -1,5 +1,7 @@
 package me.elvis.demo.service;
 
+import java.util.List;
+
 import me.elvis.demo.support.pojo.City;
 
 /**
@@ -8,4 +10,6 @@ import me.elvis.demo.support.pojo.City;
 public interface CityService {
 
 	boolean addCity(City city);
+
+	List<City> getCitiesByName(String cityName);
 }

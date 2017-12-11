@@ -2,7 +2,9 @@ package me.elvis.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +30,15 @@ public class CityController {
 		String message = "<br><div style='text-align:center;'>"
 				+ "<h3>********** Hello World, Spring MVC Tutorial</h3>This message is coming from CityController.java **********</div><br><br>";
 		return new ModelAndView("welcome", "message", message);
+	}
+
+	@GetMapping("/citySearch")
+	@ResponseBody
+	public Object cities(
+			@RequestParam("cityName")
+					String cityName) {
+		List<City> cities = cityService.getCitiesByName(cityName);
+		return cities;
 	}
 
 	@RequestMapping("/province/cities")

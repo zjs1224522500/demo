@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import me.elvis.demo.service.CityService;
 import me.elvis.demo.support.mapper.CityMapper;
 import me.elvis.demo.support.pojo.City;
@@ -29,5 +31,13 @@ public class CityServiceImpl implements CityService {
 		boolean status = cityMapper.insertCity(city);
 		logger.info("*******after insert the city*****");
 		return status;
+	}
+
+	@Override
+	public List<City> getCitiesByName(String cityName) {
+		logger.info("***********before select the city******");
+		List<City> cities = cityMapper.searchCities(null, null, null, null, cityName, null, null);
+		logger.info("***********after select the city*******");
+		return cities;
 	}
 }
