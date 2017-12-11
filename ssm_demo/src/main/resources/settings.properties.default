@@ -1,0 +1,10 @@
+# jdbc 数据源配置
+# demo数据库
+jdbc.demo.url=jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.user=root
+jdbc.password=
+
+# 数据库连接池配置
+c3p0.maxPoolSize=20
+c3p0.minPoolSize=3
