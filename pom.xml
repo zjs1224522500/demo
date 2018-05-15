@@ -22,6 +22,9 @@
         <module>ssm_demo</module>
         <module>web_server</module>
         <module>block-chain</module>
+        <module>Jedis</module>
+        <module>sp_mq_redis</module>
+        <module>ampq_demo</module>
     </modules>
 
     <!--项目的名称, Maven产生的文档用-->
@@ -45,10 +48,10 @@
 
 
         <!-- spring版本号 -->
-        <spring.version>4.3.7.RELEASE</spring.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
         <aspectj.version>1.8.10</aspectj.version>
         <!-- jackson版本号 -->
-        <jackson.version>2.8.4</jackson.version>
+        <jackson.version>2.9.5</jackson.version>
         <!-- 日志类库版本号 -->
         <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
@@ -166,6 +169,7 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
