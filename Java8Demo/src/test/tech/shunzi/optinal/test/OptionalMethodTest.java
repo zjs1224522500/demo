@@ -1,40 +1,11 @@
-# demo
-- Here is  a collection of Java demo.
+package tech.shunzi.optinal.test;
 
-### Java 8 Demo
-##### lamda expression
-##### stream
-##### interface default method
-##### Optional
-- [Reference Link Runoob.com](http://www.runoob.com/java/java8-optional-class.html)
-- [Reference Link Oracle API](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
+import org.junit.jupiter.api.Test;
+import tech.shunzi.optional.model.User;
 
-###### Implement
-- Use **Optional** class to avoid NullPointerException
-```java
-class Test {
-    
-    void testOriginal() {
-        userList.stream().forEach(user -> {
-            // check if object is null
-            if(null != user.getAddress()) {
-                System.out.println(user.getAddress().getCity());
-            }
-        });
-    }
-    
-    void testJava8Optional() {
-        userList.stream().forEach(user -> {
-            Optional.ofNullable(user.getAddress()).ifPresent(address -> {
-                System.out.println(address.getCity()); 
-            }); 
-        });
-    }
-}
-```
-- Other implements (**map,filter**)
-```java
-class OptionalMethodTest {
+import java.util.Optional;
+
+public class OptionalMethodTest {
 
     @Test
     public void testOfNullable() {
@@ -114,5 +85,3 @@ class OptionalMethodTest {
     }
 
 }
-
-```
