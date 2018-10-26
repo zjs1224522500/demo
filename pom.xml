@@ -25,6 +25,7 @@
         <module>Jedis</module>
         <module>sp_mq_redis</module>
         <module>ampq_demo</module>
+        <module>rabbitmq_java</module>
     </modules>
 
     <!--项目的名称, Maven产生的文档用-->
