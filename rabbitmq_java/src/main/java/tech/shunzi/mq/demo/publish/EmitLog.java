@@ -1,13 +1,13 @@
-package tech.shunzi.mq.demo.multi.consumer;
+package tech.shunzi.mq.demo.publish;
 
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.MessageProperties;
 
-public class NewTask {
+public class EmitLog {
 
-    private static final String TASK_QUEUE_NAME = "task_queue";
+    private static final String EXCHANGE_NAME = "logs";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -15,14 +15,14 @@ public class NewTask {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+        // Actively declare a non-autodelete, non-durable exchange with no extra arguments
+        // Declare an FANOUT exchange with name "logs"
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
 
-        // get the argv from the command line and format e.g.: xxx xxx xxx
         String message = getMessage(argv);
 
-        // MessageProperties.PERSISTENT_TEXT_PLAIN can make sure message persistent
-        // Marking messages as persistent doesn't fully guarantee that a message won't be lost.
-        channel.basicPublish("", TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
+        // Publishing to a non-existent exchange
+        channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
         System.out.println(" [x] Sent '" + message + "'");
 
         channel.close();
@@ -31,7 +31,7 @@ public class NewTask {
 
     private static String getMessage(String[] strings) {
         if (strings.length < 1) {
-            return "Hello World!";
+            return "info: Hello World!";
         }
         return joinStrings(strings, " ");
     }

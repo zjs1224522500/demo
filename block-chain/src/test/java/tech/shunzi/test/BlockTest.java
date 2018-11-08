@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.util.Assert;
 import tech.shunzi.domain.Block;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -86,4 +87,23 @@ public class BlockTest {
 			this.innerStr = innerStr;
 		}
 	}
+
+	@Test
+	public void test()
+	{
+		String filePath = "‪C:\\Users\\ZhouBao\\Desktop\\贫困户信息.xls";
+		String filepath = "C:\\Users\\i348910\\Desktop\\exchanges.png";
+		String file3Path = "C:\\Users\\ZhouBao\\Desktop\\贫困户信息.xls";
+    	File file1 = new File(filePath);
+		File file2 = new File(filepath);
+		File file3 = new File(file3Path);
+		//File file2 = new File("C:/Users/i348910/Desktop/exchanges.png"
+		System.out.println(file1.getAbsolutePath());
+		System.out.println(file2.getAbsolutePath());
+		System.out.println(file3.getAbsolutePath());
+		System.out.println(filePath.charAt(0) == filepath.charAt(0));
+		System.out.println((int) filePath.charAt(0));
+		System.out.println((int) filepath.charAt(0));
+	}
+
 }
