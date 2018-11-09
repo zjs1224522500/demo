@@ -1,4 +1,4 @@
-package tech.shunzi.tech.config;
+package tech.shunzi.config;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

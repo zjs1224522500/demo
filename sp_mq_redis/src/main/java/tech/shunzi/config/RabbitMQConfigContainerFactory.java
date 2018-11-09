@@ -1,4 +1,4 @@
-package tech.shunzi.tech.config;
+package tech.shunzi.config;
 
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
