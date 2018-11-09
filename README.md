@@ -26,4 +26,7 @@
 ### sssp demo
 ### web server
 
-# GIT Test
+### sp_mongo
+- Spring Boot
+- MongoDB
+- [Mongo Tutorial Reference](http://www.runoob.com/mongodb/mongodb-tutorial.html)
