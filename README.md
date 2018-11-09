@@ -8,7 +8,8 @@
 - Block Chain Concept
 
 ### Java 8 Demo
-- Java 8 new
+- Some Features of Java 8 (lamda etc.)
+- [Some simple examples](https://github.com/zjs1224522500/demo/tree/master/Java8Demo)
 
 ### Jedis demo
 - Java Redis
