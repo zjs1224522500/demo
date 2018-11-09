@@ -26,6 +26,7 @@
         <module>sp_mq_redis</module>
         <module>ampq_demo</module>
         <module>rabbitmq_java</module>
+        <module>sp_mongo</module>
     </modules>
 
     <!--项目的名称, Maven产生的文档用-->
