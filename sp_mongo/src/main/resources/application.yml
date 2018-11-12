@@ -4,3 +4,8 @@ spring:
       uri: mongodb://localhost:27017/test
 server:
   port: 9999
+
+
+logging:
+  level:
+    org.springframework.data.mongodb.core: DEBUG
