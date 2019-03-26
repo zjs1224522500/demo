@@ -32,7 +32,7 @@ public class MethodCacheInterceptor implements MethodInterceptor {
 			String[] targetNames = {};
 			String[] methodNames = {};
 
-			// 加载过期时间设置
+			// 加载过期时间设置lvi
 			defaultCacheExpireTime = 3600L;
 			xxxRecordManagerTime = 60L;
 			xxxSetRecordManagerTime = 60L;

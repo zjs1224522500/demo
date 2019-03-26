@@ -106,4 +106,9 @@ public class BlockTest {
 		System.out.println((int) filepath.charAt(0));
 	}
 
+	@Test
+	public void testtest()
+	{
+
+	}
 }
